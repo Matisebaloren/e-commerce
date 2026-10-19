@@ -17,15 +17,17 @@ export function ProductCard({ product }: { product: Product }) {
     <article className="product-card">
       <Link className="product-card-link" to={`/producto/${product.slug}`} state={{ catalogSearch: location.pathname === '/catalogo' ? location.search : '' }}>
         <div className="product-card-media">
-          {image && <ResponsiveImage src={image.src} alt={image.alt} loading="lazy" width={600} height={600} />}
-          <div className="product-badges">{discount && <span className="badge badge-promo">−{discount}%</span>}{product.isNew && <span className="badge badge-new">Nuevo</span>}</div>
-          <span className="product-card-arrow" aria-hidden="true"><ArrowUpRight size={19} /></span>
+          <ResponsiveImage src={image?.src ?? '/images/placeholder.svg'} alt={image?.alt ?? product.name} loading="lazy" width={600} height={600} />
+          <div className="product-badges">
+            {discount && <span className="badge badge-promo">−{discount}%</span>}
+            {product.isNew && <span className="badge badge-new">Nuevo</span>}
+          </div>
         </div>
         <div className="product-card-body">
           <span className="product-category">{category?.name}</span>
           <h3>{product.name}</h3>
           <div className="product-prices"><strong>{formatPrice(product.price)}</strong>{discount && <del>{formatPrice(product.previousPrice!)}</del>}</div>
-          <span className="product-card-detail">Descubrí los detalles <ArrowUpRight size={14} aria-hidden="true" /></span>
+          <span className="product-card-detail">Ver producto<span className="product-card-arrow" aria-hidden="true"><ArrowUpRight size={18} /></span></span>
         </div>
       </Link>
     </article>

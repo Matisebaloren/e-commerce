@@ -9,6 +9,7 @@ import { getCategory } from '../data/categories'
 import { formatPrice } from '../lib/formatters'
 import { usePageTitle } from '../lib/usePageTitle'
 import { NotFoundPage } from './NotFoundPage'
+import { brand } from '../config/brand'
 
 export function ProductDetailPage() {
   const { slug = '' } = useParams()
@@ -32,12 +33,12 @@ export function ProductDetailPage() {
         <ProductGallery key={product.id} images={product.images} name={product.name} />
         <div className="product-detail-copy">
           <div className="product-detail-kicker"><Link to={`/catalogo?categoria=${product.category}`}>{category?.name}</Link><span>{product.brand}</span></div>
-          <div className="detail-badges">{product.isNew && <span className="badge badge-new">Nuevo en NEXO</span>}{product.isFeatured && <span className="badge badge-neutral">Selección destacada</span>}</div>
+          <div className="detail-badges">{product.isNew && <span className="badge badge-new">Nuevo en {brand.name}</span>}{product.isFeatured && <span className="badge badge-neutral">Selección destacada</span>}</div>
           <h1>{product.name}</h1><p className="product-short-description">{product.shortDescription}</p>
           <div className="detail-price"><strong>{formatPrice(product.price)}</strong>{hasDiscount && <del>{formatPrice(product.previousPrice!)}</del>}<span>Precio ilustrativo en pesos argentinos</span></div>
           <p className="product-description">{product.description}</p>
-          <section className="product-features" aria-labelledby="features-heading"><h2 id="features-heading">Los detalles hacen la diferencia.</h2><dl>{product.features.map((feature) => <div key={feature.label}><dt>{feature.label}</dt><dd>{feature.value}</dd></div>)}</dl></section>
-          <div className="demo-notice"><Info size={20} aria-hidden="true" /><p><strong>Un producto para inspirarte.</strong> Este catálogo es demostrativo. Las imágenes y características son ilustrativas; no se realizan ventas reales.</p></div>
+          <section className="product-features" aria-labelledby="features-heading"><h2 id="features-heading">Características del producto.</h2><dl>{product.features.map((feature) => <div key={feature.label}><dt>{feature.label}</dt><dd>{feature.value}</dd></div>)}</dl></section>
+          <div className="demo-notice"><Info size={20} aria-hidden="true" /><p><strong>Catálogo demostrativo.</strong> Las imágenes y características son ilustrativas. {brand.demoNotice}</p></div>
           <Link className="text-link" to={`/catalogo?categoria=${product.category}`}>Seguí explorando {category?.name.toLocaleLowerCase('es-AR')}<ArrowUpRight size={18} aria-hidden="true" /></Link>
         </div>
       </div>

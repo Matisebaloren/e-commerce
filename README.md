@@ -1,6 +1,6 @@
-# NEXO Market
+# Vuravo
 
-Marketplace multiproducto demostrativo, desarrollado como proyecto de portfolio. Esta primera etapa presenta una experiencia pública en español de Argentina: una home editorial, un catálogo local con filtros y páginas de detalle navegables.
+Marketplace multiproducto demostrativo, desarrollado como proyecto de portfolio. La etapa 1.1 presenta una experiencia pública en español de Argentina: una home comercial multiproducto, un catálogo local con filtros y páginas de detalle navegables. La primera etapa se desarrolló bajo el nombre NEXO Market; su identidad visual quedó sustituida por Vuravo.
 
 > Proyecto demostrativo de portfolio. No se realizan ventas reales.
 
@@ -50,6 +50,7 @@ src/
 ├── App.tsx                  # Rutas y layout global
 ├── main.tsx                 # Montaje de React
 ├── index.css                # Tailwind 4, tokens, estilos y responsive
+├── config/brand.ts          # Identidad y mensajes compartidos de Vuravo
 ├── types/                   # Contratos de categorías, productos y repositorio
 ├── data/                    # Fixtures y repositorio local síncrono
 ├── lib/                     # Formato ARS, normalización y títulos
@@ -62,24 +63,26 @@ src/
 └── pages/                   # Inicio, catálogo, detalle y página inexistente
 
 public/
-├── nexo.svg                 # Identidad del favicon
+├── favicon.svg              # Isotipo Vuravo
+├── brand/vuravo.svg         # Logotipo tipográfico
 └── images/placeholder.svg   # Alternativa local para imágenes fallidas
 ```
 
-`project-map.md` y `session-log.md` conservan el mapa del proyecto y decisiones de implementación. La especificación visual inicial se encuentra en `docs/specs/`.
+`project-map.md` y `session-log.md` conservan el mapa del proyecto y decisiones de implementación. La especificación visual vigente es `docs/specs/2026-10-19-vuravo-design.md`. La especificación NEXO se conserva como registro histórico sustituido.
 
 ## Funcionalidades actuales
 
-- Identidad NEXO Market: azul principal, acentos promocionales naranjas, Manrope e Inter.
-- Header con navegación, buscador que abre el catálogo y enlaces de categoría.
+- Identidad Vuravo: logotipo `vuravo.`, isotipo propio, azul, coral, crema, azul suave y tipografías Manrope e Inter.
+- Header compacto con navegación activa, buscador destacado que abre el catálogo y enlaces de categoría.
 - Menú móvil desplegable con cierre al elegir un enlace o presionar Escape.
-- Hero editorial, mosaico de seis categorías y secciones de destacados y novedades.
-- Cards compartidas con categoría, nombre, precio ARS y etiquetas derivadas de los datos.
+- Hero multiproducto de tecnología, moda y hogar; mosaico asimétrico compacto de seis categorías.
+- Cuatro destacados, campañas de tecnología y hogar, novedades y cierre comercial breve.
+- Cards compartidas con fotografía completa, categoría, nombre, precio ARS destacado y etiquetas derivadas de los datos.
 - Búsqueda por nombre sin distinción de mayúsculas ni acentos.
 - Filtros combinables con `q` y `categoria`, sincronizados con React Router.
 - Modificar un filtro preserva el otro; se eliminan valores vacíos y se admite atrás/adelante.
 - Estado vacío con acción para limpiar filtros, incluidas categorías desconocidas.
-- Detalle con miniaturas seleccionables, descripción, características y productos relacionados.
+- Detalle con descripción, características, productos relacionados y soporte de miniaturas cuando haya varias fotografías pertinentes.
 - Regreso desde el detalle al catálogo con sus filtros, cuando se accede desde él.
 - Páginas informativas para productos y rutas inexistentes.
 - Grilla de una columna por debajo de 420 px, dos desde 420 px, tres desde 768 px y cuatro desde 1200 px.
@@ -92,9 +95,24 @@ El catálogo tiene 18 productos: tres por categoría en Tecnología, Hogar, Moda
 
 Los precios se almacenan como números y se muestran mediante una función compartida con `Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' })`. Los descuentos solo aparecen cuando un producto tiene un precio anterior mayor al actual; se calculan a partir de esos datos ficticios.
 
-Las fotografías son ilustrativas, utilizan URLs específicas de [Unsplash](https://unsplash.com/) y pueden mostrar productos de terceros que no representan las marcas ficticias del catálogo. Las miniaturas de detalle ofrecen una vista completa y un recorte de la misma fotografía. Consultá la [licencia de Unsplash](https://unsplash.com/license) para la reutilización de los recursos. Las fuentes se cargan desde Google Fonts. Estos recursos visuales requieren conexión; si una fotografía no carga, se utiliza el placeholder local.
+Las fotografías son ilustrativas, utilizan URLs específicas de [Unsplash](https://unsplash.com/) y pueden mostrar productos de terceros que no representan las marcas ficticias del catálogo. Cada producto utiliza una única fotografía pertinente cuando no se dispone de vistas complementarias auténticas. Se eliminaron los recortes duplicados; el componente de galería conserva soporte para múltiples imágenes cuando se incorporen fotografías del mismo artículo. Consultá la [licencia de Unsplash](https://unsplash.com/license) para la reutilización de los recursos. Las fuentes se cargan desde Google Fonts. Estos recursos visuales requieren conexión; si una fotografía no carga, se utiliza el placeholder local.
 
 Productos, categorías y precios se obtienen exclusivamente de fixtures locales. No se consulta ninguna API externa de datos.
+
+### Fotografías incorporadas en la etapa 1.1
+
+- [Cafetera de filtro — Vlad Chistyakov](https://unsplash.com/photos/coffee-maker-with-cups-and-kettle-on-counter-G3lIh_L3P8g).
+- [Organizador de escritorio — Behnam Norouzi](https://unsplash.com/photos/a-desk-with-a-keyboard-speakers-and-pen-holder-8lPsHVz55qE).
+- [Secador de pelo — Annie Spratt](https://unsplash.com/photos/white-corded-hair-blower-on-gray-wooden-surface-PM8WRGalS7w).
+- [Bolso deportivo — Alfred Rowe](https://unsplash.com/photos/black-duffel-bag-on-white-surface-XNNsbcVy7V4).
+
+Las fotografías representan la naturaleza del artículo y no acreditan sus especificaciones ficticias ni una relación comercial con las marcas visibles.
+
+## Sistema visual vigente
+
+Los tokens de color están centralizados en `src/index.css`: `brand-primary`, `brand-coral`, `brand-dark`, `brand-blue-soft`, `brand-cream`, `background`, `surface` y `text-primary`. Las variables de espaciado definen el ritmo compartido de la home y las páginas públicas.
+
+La configuración `src/config/brand.ts` reúne el nombre, logotipo, lema y aviso de demostración. Los metadatos estáticos de `index.html` reflejan la misma identidad. El nombre Vuravo es provisional para este portfolio.
 
 ## Preparación para WooCommerce
 

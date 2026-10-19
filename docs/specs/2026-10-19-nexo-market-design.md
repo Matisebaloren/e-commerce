@@ -1,5 +1,7 @@
 # NEXO Market — Diseño de la primera etapa
 
+> Registro histórico sustituido por Vuravo en la etapa 1.1. La especificación vigente es [Vuravo](2026-10-19-vuravo-design.md). Se conserva este documento para registrar las decisiones iniciales.
+
 ## Objetivo
 
 Convertir el scaffold de Vite en una experiencia pública de marketplace demostrativa, visualmente premium, navegable y preparada para conectar una futura fuente WooCommerce.

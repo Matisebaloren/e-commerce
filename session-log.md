@@ -9,3 +9,15 @@ Rejected:
 - Dependencias de estado y validación innecesarias.
 Open:
 - Integración futura con WooCommerce y publicación con fallback de rutas.
+
+## 2026-10-19 — Vuravo, etapa 1.1 [saved]
+Goal: Sustituir NEXO por Vuravo y compactar la experiencia comercial.
+Decisions:
+- La identidad visual NEXO queda sustituida por Vuravo; se preserva su especificación como registro histórico.
+- Centralizar marca y tokens; conservar contratos, IDs, slugs, filtros y dependencias existentes.
+- Mostrar una foto pertinente por producto cuando no existan vistas complementarias; eliminar recortes duplicados.
+Rejected:
+- Nuevas funciones de compra y dependencias de UI.
+- Tests, builds, lint, auditorías y revisiones posteriores.
+Open:
+- Integrar WooCommerce y funciones comerciales en una etapa posterior.

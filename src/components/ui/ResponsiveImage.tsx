@@ -6,7 +6,7 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt'> & {
   alt: string
 }
 
-export function ResponsiveImage({ src, alt, sizes = '(min-width: 1200px) 320px, (min-width: 768px) 33vw, 50vw', ...props }: Props) {
+export function ResponsiveImage({ src, alt, className = '', sizes = '(min-width: 1440px) 322px, (min-width: 1200px) 24vw, (min-width: 768px) 31vw, (min-width: 420px) 46vw, 92vw', ...props }: Props) {
   const [failedSource, setFailedSource] = useState<string>()
   const failed = failedSource === src
   const widths = [320, 640, 1000, 1600]
@@ -17,10 +17,11 @@ export function ResponsiveImage({ src, alt, sizes = '(min-width: 1200px) 320px, 
   return (
     <img
       {...props}
+      className={`${className}${failed ? ' image-fallback' : ''}`}
       src={failed ? '/images/placeholder.svg' : src}
       srcSet={failed ? undefined : srcSet}
       sizes={sizes}
-      alt={failed ? `${alt}. Imagen no disponible` : alt}
+      alt={failed && alt ? `${alt}. Imagen no disponible` : alt}
       onError={() => setFailedSource(src)}
     />
   )

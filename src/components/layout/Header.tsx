@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Container } from './Container'
 import { MobileMenu } from './MobileMenu'
 import { Brand } from '../ui/Brand'
@@ -38,9 +38,6 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <div className="announcement">
-        <Container><span>Objetos que conectan con tu día.</span><Link to="/catalogo">Conocé nuestra selección <ArrowUpRight size={13} aria-hidden="true" /></Link></Container>
-      </div>
       <Container>
         <div className="header-main">
           <Brand />
@@ -59,8 +56,7 @@ export function Header() {
         <Container>
           <nav className="category-nav" aria-label="Categorías de productos">
             <Link className="category-nav-all" to="/catalogo"><Menu size={16} aria-hidden="true" />Todas las categorías</Link>
-            {categories.map((category) => <Link key={category.id} to={`/catalogo?categoria=${category.slug}`}>{category.name}</Link>)}
-            <span className="nav-note">Elegidos para tu día a día</span>
+            {categories.map((category) => <Link key={category.id} className={params.get('categoria') === category.slug && location.pathname === '/catalogo' ? 'is-active' : undefined} aria-current={params.get('categoria') === category.slug && location.pathname === '/catalogo' ? 'page' : undefined} to={`/catalogo?categoria=${category.slug}`}>{category.name}</Link>)}
           </nav>
         </Container>
       </div>

@@ -1,15 +1,15 @@
 import type { Product, ProductImage } from '../types/product'
 
-// Each secondary image is a detail crop of the same photograph.
+// Only distinct, relevant photographs belong in a gallery. A single image is
+// intentional when complementary views of the same item are unavailable.
 const gallery = (photo: string, alt: string): readonly ProductImage[] => [
   { src: `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=1000&q=85`, alt },
-  { src: `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=1000&h=1250&q=85&crop=entropy`, alt: `${alt}. Recorte de detalle` },
 ]
 
 // Fictional brands, prices and specifications. Photos are illustrative.
 export const products: readonly Product[] = [
   {
-    id: 'nx-001', slug: 'auriculares-inalambricos-studio', name: 'Auriculares inalámbricos Studio', category: 'tecnologia', brand: 'Nexo Sound',
+    id: 'nx-001', slug: 'auriculares-inalambricos-studio', name: 'Auriculares inalámbricos Studio', category: 'tecnologia', brand: 'Vuravo Audio',
     price: 89900, previousPrice: 109900, isFeatured: true, isNew: false,
     shortDescription: 'Tu música, con espacio para desconectar.',
     description: 'Una pausa que suena bien. Studio combina almohadillas suaves y una estructura liviana para acompañarte mientras trabajás, viajás o escuchás ese álbum que siempre volvés a poner. Su diseño plegable se adapta a tu rutina.',
@@ -45,7 +45,7 @@ export const products: readonly Product[] = [
     price: 82900, previousPrice: 94900, isFeatured: false, isNew: false,
     shortDescription: 'Dale un buen comienzo a tus mañanas.',
     description: 'El aroma de una mañana sin apuro. Daily prepara café de filtro con un uso sencillo y una jarra cómoda para compartir. Su formato ocupa poco espacio y deja que el ritual del café sea el protagonista.',
-    images: gallery('photo-1517668808822-9ebb02f2a0e6', 'Preparación de café de filtro para la colección Daily'),
+    images: gallery('photo-1759393443812-ed0e20704920', 'Cafetera de filtro sobre una mesada junto a tazas y una pava'),
     features: [{ label: 'Capacidad', value: '1 litro' }, { label: 'Filtro', value: 'Reutilizable y extraíble' }, { label: 'Jarra', value: 'Vidrio con asa aislante' }, { label: 'Potencia', value: '800 W' }],
   },
   {
@@ -53,7 +53,7 @@ export const products: readonly Product[] = [
     price: 28500, isFeatured: false, isNew: true,
     shortDescription: 'Menos desorden. Más espacio para crear.',
     description: 'Un lugar para cada cosa que usás a diario. Order reúne compartimentos de distintas medidas para guardar útiles y pequeños accesorios. Su terminación natural suma calidez al escritorio sin recargarlo.',
-    images: gallery('photo-1497215728101-856f4ea42174', 'Ambiente de escritorio organizado de la colección Order'),
+    images: gallery('photo-1637162706431-f3b60962a82a', 'Organizador de madera para útiles junto a un teclado y parlantes de escritorio'),
     features: [{ label: 'Material', value: 'Bambú' }, { label: 'Medidas', value: '28 × 15 × 10 cm' }, { label: 'Compartimentos', value: 'Cuatro espacios abiertos' }, { label: 'Cuidado', value: 'Paño apenas húmedo' }],
   },
   {
@@ -93,7 +93,7 @@ export const products: readonly Product[] = [
     price: 64900, isFeatured: false, isNew: false,
     shortDescription: 'Tu rutina, con un toque más práctico.',
     description: 'Air combina un formato cómodo con controles sencillos para el secado cotidiano. Sus ajustes de temperatura permiten adaptar el uso a tu rutina y la boquilla concentradora ayuda a dirigir el aire.',
-    images: gallery('photo-1522338140262-f46f5913618a', 'Colección de herramientas para el cuidado del cabello Air'),
+    images: gallery('photo-1540544093-f8803cbd9c64', 'Secador de pelo blanco con cable sobre una superficie de madera gris'),
     features: [{ label: 'Potencia', value: '1800 W' }, { label: 'Temperaturas', value: 'Tres niveles' }, { label: 'Velocidades', value: 'Dos niveles' }, { label: 'Accesorio', value: 'Boquilla concentradora' }],
   },
   {
@@ -125,7 +125,7 @@ export const products: readonly Product[] = [
     price: 54900, isFeatured: false, isNew: false,
     shortDescription: 'Listo para entrenar o escaparte.',
     description: 'El espacio justo para ese plan que te saca de la rutina. Weekender ofrece una apertura amplia, asas reforzadas y una correa regulable. Su bolsillo lateral separa los objetos que preferís tener a mano.',
-    images: gallery('photo-1553062407-98eeb64c6a62', 'Bolso textil de transporte de la colección Weekender'),
+    images: gallery('photo-1562870152-e9b679706659', 'Bolso deportivo negro apoyado sobre una superficie clara'),
     features: [{ label: 'Capacidad', value: '30 litros' }, { label: 'Material', value: 'Poliéster' }, { label: 'Transporte', value: 'Asas y correa desmontable' }, { label: 'Bolsillos', value: 'Principal y lateral con cierre' }],
   },
   {
