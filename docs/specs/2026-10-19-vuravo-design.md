@@ -1,5 +1,7 @@
 # Vuravo — Sistema visual vigente, etapa 1.1
 
+> Registro histórico: la composición de esta etapa quedó sustituida por [Vuravo 1.2](2026-10-19-vuravo-1-2-design.md). La marca y los contratos de datos se conservan.
+
 Sustituye la identidad NEXO Market de la etapa 1. El documento original se conserva como registro histórico.
 
 ## Alcance

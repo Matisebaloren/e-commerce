@@ -4,6 +4,7 @@ import type { Product } from '../../types/product'
 import { getCategory } from '../../data/categories'
 import { formatPrice } from '../../lib/formatters'
 import { ResponsiveImage } from '../ui/ResponsiveImage'
+import { getProductImageClass } from '../../lib/productImages'
 
 export function ProductCard({ product }: { product: Product }) {
   const category = getCategory(product.category)
@@ -17,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
     <article className="product-card">
       <Link className="product-card-link" to={`/producto/${product.slug}`} state={{ catalogSearch: location.pathname === '/catalogo' ? location.search : '' }}>
         <div className="product-card-media">
-          <ResponsiveImage src={image?.src ?? '/images/placeholder.svg'} alt={image?.alt ?? product.name} loading="lazy" width={600} height={600} />
+          <ResponsiveImage className={getProductImageClass(image?.src ?? '/images/placeholder.svg')} src={image?.src ?? '/images/placeholder.svg'} alt={image?.alt ?? product.name} loading="lazy" width={600} height={600} />
           <div className="product-badges">
             {discount && <span className="badge badge-promo">−{discount}%</span>}
             {product.isNew && <span className="badge badge-new">Nuevo</span>}

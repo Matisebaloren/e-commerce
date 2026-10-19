@@ -16,6 +16,7 @@ export function ResponsiveImage({ src, alt, className = '', sizes = '(min-width:
 
   return (
     <img
+      decoding="async"
       {...props}
       className={`${className}${failed ? ' image-fallback' : ''}`}
       src={failed ? '/images/placeholder.svg' : src}

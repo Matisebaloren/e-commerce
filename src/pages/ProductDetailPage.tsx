@@ -36,13 +36,13 @@ export function ProductDetailPage() {
           <div className="detail-badges">{product.isNew && <span className="badge badge-new">Nuevo en {brand.name}</span>}{product.isFeatured && <span className="badge badge-neutral">Selección destacada</span>}</div>
           <h1>{product.name}</h1><p className="product-short-description">{product.shortDescription}</p>
           <div className="detail-price"><strong>{formatPrice(product.price)}</strong>{hasDiscount && <del>{formatPrice(product.previousPrice!)}</del>}<span>Precio ilustrativo en pesos argentinos</span></div>
-          <p className="product-description">{product.description}</p>
+          <section className="product-description-section" aria-labelledby="description-heading"><h2 id="description-heading">Sobre este producto</h2><p className="product-description">{product.description}</p></section>
           <section className="product-features" aria-labelledby="features-heading"><h2 id="features-heading">Características del producto.</h2><dl>{product.features.map((feature) => <div key={feature.label}><dt>{feature.label}</dt><dd>{feature.value}</dd></div>)}</dl></section>
-          <div className="demo-notice"><Info size={20} aria-hidden="true" /><p><strong>Catálogo demostrativo.</strong> Las imágenes y características son ilustrativas. {brand.demoNotice}</p></div>
+          <div className="demo-notice"><Info size={20} aria-hidden="true" /><p>{brand.demoNotice}</p></div>
           <Link className="text-link" to={`/catalogo?categoria=${product.category}`}>Seguí explorando {category?.name.toLocaleLowerCase('es-AR')}<ArrowUpRight size={18} aria-hidden="true" /></Link>
         </div>
       </div>
-      {related.length > 0 && <section className="related-products"><SectionHeading eyebrow="SEGUÍ EXPLORANDO" title="También van con vos." to={`/catalogo?categoria=${product.category}`} linkLabel={`Ver ${category?.name.toLocaleLowerCase('es-AR')}`} /><ProductGrid products={related} /></section>}
+      {related.length > 0 && <section className="related-products"><SectionHeading eyebrow="SEGUÍ EXPLORANDO" title="Más de esta categoría." to={`/catalogo?categoria=${product.category}`} linkLabel={`Ver ${category?.name.toLocaleLowerCase('es-AR')}`} /><ProductGrid products={related} /></section>}
     </Container>
   )
 }

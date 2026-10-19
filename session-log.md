@@ -21,3 +21,15 @@ Rejected:
 - Tests, builds, lint, auditorías y revisiones posteriores.
 Open:
 - Integrar WooCommerce y funciones comerciales en una etapa posterior.
+
+## 2026-10-19 — Vuravo, etapa 1.2 [saved]
+Goal: Sustituir la composición saturada por una tienda de superficies neutras y productos protagonistas.
+Decisions:
+- La composición de la etapa 1.1 queda sustituida; marca, contratos, rutas, filtros e IDs se conservan.
+- Separar el marco fotográfico del flujo del hero para evitar crecimiento por dimensiones intrínsecas.
+- Compartir encuadre por recurso entre cards y galería; no modificar modelos por necesidades visuales.
+Rejected:
+- Paneles saturados, recortes elípticos y collages de producto.
+- Tests, lint, builds, auditorías y revisiones posteriores.
+Open:
+- Fotografía adicional auténtica y futura integración de comercio.

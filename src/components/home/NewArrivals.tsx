@@ -9,9 +9,9 @@ export function NewArrivals() {
   return (
     <section className="section new-arrivals">
       <Container>
-        <SectionHeading eyebrow="Novedades" title="Recién llegados. Nuevos favoritos." linkLabel="Seguí descubriendo" to="/catalogo" />
+        <SectionHeading eyebrow="Recién llegados" title="Nuevos favoritos por descubrir." linkLabel="Explorar más" to="/catalogo" />
         <ProductGrid products={productRepository.getNew().slice(0, 4)} />
-        <div className="closing-note"><p>Hay más para vos.<strong>Encontralo en nuestro catálogo.</strong></p><Link className="button button-primary" to="/catalogo">Ver todos los productos<ArrowUpRight size={18} aria-hidden="true" /></Link></div>
+        <div className="closing-note"><p><strong>¿Todavía buscando?</strong> Encontrá más en nuestro catálogo.</p><Link className="text-link" to="/catalogo">Ver todos los productos<ArrowUpRight size={18} aria-hidden="true" /></Link></div>
       </Container>
     </section>
   )

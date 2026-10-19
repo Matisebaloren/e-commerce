@@ -9,26 +9,24 @@ export function PromoBanner() {
   const home = getCategory('hogar')
 
   return (
-    <section className="promo-section" aria-label="Colecciones para explorar">
+    <section className="promo-section" aria-label="Selecciones de tecnología y hogar">
       <Container>
         <div className="campaign-grid">
-          <article className="campaign campaign-coral">
+          <article className="campaign">
             <div className="campaign-copy">
-              <span className="eyebrow">Tu mundo, más conectado</span>
-              <h2>Un upgrade<br />para tus días.</h2>
-              <p>Sonido, diseño y tecnología que van con vos.</p>
-              <Link className="button button-dark" to="/catalogo?categoria=tecnologia">Explorar tecnología<ArrowUpRight size={18} aria-hidden="true" /></Link>
+              <span className="eyebrow">Tecnología para todos los días</span>
+              <h2>Conectá con<br />lo que te gusta.</h2>
+              <Link className="text-link" to="/catalogo?categoria=tecnologia">Explorar tecnología<ArrowUpRight size={18} aria-hidden="true" /></Link>
             </div>
-            {technology && <ResponsiveImage src={technology.image} alt={technology.imageAlt} width={600} height={600} loading="lazy" sizes="(min-width: 768px) 25vw, 50vw" />}
+            <div className="campaign-media">{technology && <ResponsiveImage src={technology.image} alt={technology.imageAlt} width={700} height={700} loading="lazy" sizes="(min-width: 768px) 23vw, 45vw" />}</div>
           </article>
-          <article className="campaign campaign-cream">
+          <article className="campaign campaign-warm">
             <div className="campaign-copy">
-              <span className="eyebrow">Hogar con personalidad</span>
-              <h2>Ese toque<br />que faltaba.</h2>
-              <p>Detalles que hacen más tuyo cada rincón.</p>
+              <span className="eyebrow">Objetos para tu espacio</span>
+              <h2>Hacé de tu casa<br />tu lugar.</h2>
               <Link className="text-link" to="/catalogo?categoria=hogar">Descubrí hogar<ArrowUpRight size={18} aria-hidden="true" /></Link>
             </div>
-            {home && <ResponsiveImage src={home.image} alt={home.imageAlt} width={600} height={600} loading="lazy" sizes="(min-width: 768px) 25vw, 50vw" />}
+            <div className="campaign-media">{home && <ResponsiveImage src={home.image} alt={home.imageAlt} width={700} height={700} loading="lazy" sizes="(min-width: 768px) 23vw, 45vw" />}</div>
           </article>
         </div>
       </Container>

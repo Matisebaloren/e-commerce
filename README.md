@@ -1,6 +1,6 @@
 # Vuravo
 
-Marketplace multiproducto demostrativo, desarrollado como proyecto de portfolio. La etapa 1.1 presenta una experiencia pública en español de Argentina: una home comercial multiproducto, un catálogo local con filtros y páginas de detalle navegables. La primera etapa se desarrolló bajo el nombre NEXO Market; su identidad visual quedó sustituida por Vuravo.
+Marketplace multiproducto demostrativo, desarrollado como proyecto de portfolio. La etapa 1.2 presenta una experiencia pública en español de Argentina: una home con hero cálido y fotografía lifestyle, categorías compactas, un catálogo local con filtros y páginas de detalle navegables. La primera etapa se desarrolló bajo el nombre NEXO Market; su identidad visual quedó sustituida por Vuravo.
 
 > Proyecto demostrativo de portfolio. No se realizan ventas reales.
 
@@ -53,7 +53,7 @@ src/
 ├── config/brand.ts          # Identidad y mensajes compartidos de Vuravo
 ├── types/                   # Contratos de categorías, productos y repositorio
 ├── data/                    # Fixtures y repositorio local síncrono
-├── lib/                     # Formato ARS, normalización y títulos
+├── lib/                     # Formato ARS, normalización, títulos y presentación de fotografías
 ├── components/
 │   ├── layout/              # Header, footer, menú y contenedor
 │   ├── home/                # Hero y secciones de inicio
@@ -68,16 +68,19 @@ public/
 └── images/placeholder.svg   # Alternativa local para imágenes fallidas
 ```
 
-`project-map.md` y `session-log.md` conservan el mapa del proyecto y decisiones de implementación. La especificación visual vigente es `docs/specs/2026-10-19-vuravo-design.md`. La especificación NEXO se conserva como registro histórico sustituido.
+`project-map.md` y `session-log.md` conservan el mapa del proyecto y decisiones de implementación. La especificación visual vigente es `docs/specs/2026-10-19-vuravo-1-2-design.md`. Las especificaciones NEXO y Vuravo 1.1 se conservan como registros históricos sustituidos.
 
 ## Funcionalidades actuales
 
-- Identidad Vuravo: logotipo `vuravo.`, isotipo propio, azul, coral, crema, azul suave y tipografías Manrope e Inter.
-- Header compacto con navegación activa, buscador destacado que abre el catálogo y enlaces de categoría.
+- Identidad Vuravo: logotipo e isotipo conservados, superficies blancas, fondo cálido `#F4EDE3` y fondo general `#F6F7F9`.
+- Azul `#335CFF` en acciones y navegación; coral reservado para etiquetas promocionales. Manrope e Inter.
+- Header compacto con navegación activa, buscador destacado y enlaces de categoría. El label del buscador del header está visualmente oculto y sigue disponible para tecnologías de asistencia.
 - Menú móvil desplegable con cierre al elegir un enlace o presionar Escape.
-- Hero multiproducto de tecnología, moda y hogar; mosaico asimétrico compacto de seis categorías.
+- Hero de dos sectores: mensaje y CTA sobre fondo cálido, con una sola fotografía lifestyle.
+- Seis categorías en una grilla regular: dos columnas en móvil, tres desde 600 px y seis desde 1024 px.
 - Cuatro destacados, campañas de tecnología y hogar, novedades y cierre comercial breve.
-- Cards compartidas con fotografía completa, categoría, nombre, precio ARS destacado y etiquetas derivadas de los datos.
+- Cards compartidas con imagen protagonista, categoría, nombre, precio ARS destacado y etiquetas derivadas de los datos.
+- Presentación de fotografías según el recurso: `cover` para escenas comerciales y `contain` para objetos aislados.
 - Búsqueda por nombre sin distinción de mayúsculas ni acentos.
 - Filtros combinables con `q` y `categoria`, sincronizados con React Router.
 - Modificar un filtro preserva el otro; se eliminan valores vacíos y se admite atrás/adelante.
@@ -86,7 +89,7 @@ public/
 - Regreso desde el detalle al catálogo con sus filtros, cuando se accede desde él.
 - Páginas informativas para productos y rutas inexistentes.
 - Grilla de una columna por debajo de 420 px, dos desde 420 px, tres desde 768 px y cuatro desde 1200 px.
-- HTML semántico, labels visibles, enlace de salto, foco visible y respeto de movimiento reducido.
+- HTML semántico, labels accesibles, enlace de salto, foco visible y respeto de movimiento reducido.
 - Fotografías adaptativas con carga diferida fuera del hero y fallback SVG local.
 
 ## Datos de demostración
@@ -110,7 +113,11 @@ Las fotografías representan la naturaleza del artículo y no acreditan sus espe
 
 ## Sistema visual vigente
 
-Los tokens de color están centralizados en `src/index.css`: `brand-primary`, `brand-coral`, `brand-dark`, `brand-blue-soft`, `brand-cream`, `background`, `surface` y `text-primary`. Las variables de espaciado definen el ritmo compartido de la home y las páginas públicas.
+Los tokens de color están centralizados en `src/index.css`: `brand-primary`, `brand-coral`, `brand-dark`, `warm`, `background`, `surface` y `text-primary`. Los tonos secundarios se usan en pequeñas etiquetas e indicadores. Las variables de espaciado definen el ritmo compartido de la home y las páginas públicas.
+
+El hero determina su altura por el contenido: la fotografía se posiciona en un contenedor independiente y no aporta su altura intrínseca a la grilla. En móvil, el contenedor fotográfico reserva una proporción 16:10. Se retiraron los tres paneles de producto, el mosaico de colores y los recortes elípticos de las campañas.
+
+`src/lib/productImages.ts` reúne las decisiones de encuadre de las fotografías existentes, compartidas por cards y galería, sin modificar los modelos de producto. La foto de portada es el recurso fijo de Unsplash `photo-1490481651871-ab68de25d43d`.
 
 La configuración `src/config/brand.ts` reúne el nombre, logotipo, lema y aviso de demostración. Los metadatos estáticos de `index.html` reflejan la misma identidad. El nombre Vuravo es provisional para este portfolio.
 
