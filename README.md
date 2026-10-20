@@ -2,6 +2,8 @@
 
 Vuravo es una aplicación web de comercio electrónico desarrollada como proyecto personal de portfolio. El objetivo es recrear la experiencia de una tienda online moderna, con una interfaz responsive, navegación intuitiva y funcionalidades de compra simuladas.
 
+link del proyecto en Render: https://e-commerce-mq9b.onrender.com/
+
 El proyecto está desarrollado con **React, TypeScript y Tailwind CSS**, utilizando datos locales para representar un catálogo de productos.
 
 ## Funcionalidades
