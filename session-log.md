@@ -33,3 +33,15 @@ Rejected:
 - Tests, lint, builds, auditorías y revisiones posteriores.
 Open:
 - Fotografía adicional auténtica y futura integración de comercio.
+
+## 2026-10-19 — Vuravo, etapa 2.1 [saved]
+Goal: Incorporar carrito local persistente sin alterar el diseño general ni los contratos de productos.
+Decisions:
+- Usar Context y useReducer; persistir IDs y cantidades, derivando precios desde el repositorio.
+- Compartir selector, artículos y resumen entre drawer modal nativo y /carrito.
+- Integrar sobre la base local 1.2; la etapa 2.0 citada no estaba implementada.
+Rejected:
+- Checkout, pagos, backend y stock real.
+- Tests, lint, builds, auditorías y comprobaciones posteriores.
+Open:
+- Migrar el carrito a sesiones y reglas de WooCommerce.

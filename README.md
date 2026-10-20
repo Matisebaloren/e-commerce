@@ -1,6 +1,6 @@
 # Vuravo
 
-Marketplace multiproducto demostrativo, desarrollado como proyecto de portfolio. La etapa 1.2 presenta una experiencia pública en español de Argentina: una home con hero cálido y fotografía lifestyle, categorías compactas, un catálogo local con filtros y páginas de detalle navegables. La primera etapa se desarrolló bajo el nombre NEXO Market; su identidad visual quedó sustituida por Vuravo.
+Marketplace multiproducto demostrativo, desarrollado como proyecto de portfolio. La aplicación combina el diseño 1.2 con el carrito local 2.1 y presenta una experiencia pública en español de Argentina: una home con hero cálido y fotografía lifestyle, categorías compactas, un catálogo local con filtros y páginas de detalle navegables. La primera etapa se desarrolló bajo el nombre NEXO Market; su identidad visual quedó sustituida por Vuravo.
 
 > Proyecto demostrativo de portfolio. No se realizan ventas reales.
 
@@ -36,7 +36,8 @@ Abrí la dirección local indicada por Vite. El archivo `package-lock.json` regi
 | `/catalogo?q=auriculares` | Búsqueda por nombre |
 | `/catalogo?categoria=hogar` | Categoría seleccionada |
 | `/catalogo?q=lampara&categoria=hogar` | Búsqueda y categoría combinadas |
-| `/producto/:slug` | Galería e información del producto |
+| `/producto/:slug` | Galería, información y agregado al carrito |
+| `/carrito` | Artículos, cantidades, resumen y vaciado del carrito local |
 | Cualquier ruta desconocida | Página informativa con navegación de regreso |
 
 Ejemplo de detalle: `/producto/auriculares-inalambricos-studio`.
@@ -51,6 +52,7 @@ src/
 ├── main.tsx                 # Montaje de React
 ├── index.css                # Tailwind 4, tokens, estilos y responsive
 ├── config/brand.ts          # Identidad y mensajes compartidos de Vuravo
+├── cart/                    # Context, reducer, persistencia y cálculos del carrito
 ├── types/                   # Contratos de categorías, productos y repositorio
 ├── data/                    # Fixtures y repositorio local síncrono
 ├── lib/                     # Formato ARS, normalización, títulos y presentación de fotografías
@@ -59,6 +61,7 @@ src/
 │   ├── home/                # Hero y secciones de inicio
 │   ├── products/            # Cards, grilla y galería
 │   ├── catalog/             # Buscador, filtros y estado vacío
+│   ├── cart/                # Artículos, drawer, selector, resumen y feedback
 │   └── ui/                  # Marca, encabezados e imágenes con fallback
 └── pages/                   # Inicio, catálogo, detalle y página inexistente
 
@@ -121,6 +124,50 @@ El hero determina su altura por el contenido: la fotografía se posiciona en un 
 
 La configuración `src/config/brand.ts` reúne el nombre, logotipo, lema y aviso de demostración. Los metadatos estáticos de `index.html` reflejan la misma identidad. El nombre Vuravo es provisional para este portfolio.
 
+## Carrito local — etapa 2.1
+
+El carrito utiliza React Context, useReducer y el hook useCart, sin dependencias adicionales. Un único proveedor envuelve el layout y todas las rutas.
+
+- Agregado desde cards y detalle, con cantidades seleccionables.
+- Una línea por producto; agregar nuevamente acumula unidades.
+- Cantidades enteras de 1 a 10, eliminación individual y vaciado con confirmación inline.
+- Contador de unidades del header y feedback temporal sin apertura obligatoria del drawer.
+- Drawer modal accesible y página completa en /carrito.
+- Artículos, selector, resumen y estado vacío compartidos entre ambas vistas.
+- Persistencia automática entre recargas y visitas del mismo navegador.
+
+### Arquitectura y operaciones
+
+src/cart/ contiene cartTypes.ts, cartReducer.ts, cartUtils.ts, cartStorage.ts, CartContext.ts, CartProvider.tsx, useCart.ts y cart.css.
+
+src/components/cart/ contiene las vistas reutilizables, el drawer, el feedback y las acciones de agregado. La página completa está en src/pages/CartPage.tsx.
+
+Operaciones: addItem(productId, quantity = 1), removeItem(productId), setQuantity(productId, quantity) y clearCart().
+
+Datos derivados: lines, totalUnits, lineCount, subtotal e isEmpty. Los productos y precios actuales siempre se recuperan mediante productRepository. El subtotal usa precio actual × cantidad, nunca precios anteriores ni importes almacenados por el navegador.
+
+### Persistencia y recuperación
+
+Clave de localStorage: vuravo-cart-v1. Su JSON contiene únicamente un array de objetos con productId y quantity. Vaciar el carrito elimina la clave.
+
+Se descartan entradas incompletas, cantidades inválidas y productos inexistentes. Los IDs repetidos se combinan con máximo de 10 unidades. Un JSON corrupto se recupera como carrito vacío. Si el almacenamiento está bloqueado o no admite escritura, el carrito continúa en memoria y el resumen informa sobre la posible pérdida al recargar.
+
+La persistencia corresponde a este origen y navegador; no hay sincronización entre pestañas o dispositivos.
+
+### Interacción y límites
+
+El drawer usa dialog.showModal() para modalidad, foco contenido y restauración al cerrar. Se cierra por Escape, botón, fondo o navegación. Lista y resumen permiten desplazamiento cuando hace falta.
+
+El selector se deshabilita al disminuir desde 1; una acción separada elimina la línea. El máximo de 10 es un límite demostrativo, no disponibilidad ni reserva de stock.
+
+Los importes son ilustrativos en ARS. El subtotal no es un total final de compra; no se calculan envíos ni impuestos adicionales. No hay checkout, pagos o pedidos reales.
+
+### Base de navegación disponible
+
+La base local de esta implementación corresponde a la etapa 1.2, con búsqueda por nombre y categoría. Los filtros de precio, ordenamiento y autocompletado mencionados como etapa 2.0 no estaban presentes y no se agregan dentro del alcance del carrito.
+
+La documentación técnica ampliada está en [docs/cart.md](docs/cart.md).
+
 ## Preparación para WooCommerce
 
 Los modelos de dominio y el contrato `ProductRepository` están separados de los componentes. El repositorio local ofrece:
@@ -133,12 +180,14 @@ Los modelos de dominio y el contrato `ProductRepository` están separados de los
 
 Las operaciones actuales son síncronas y puras. Una fase posterior podrá mapear respuestas de WooCommerce a los modelos existentes. Esa integración requerirá incorporar acceso asíncrono y sus estados de carga/error en la capa de datos y las páginas consumidoras. Actualmente no hay conexión, credenciales ni configuración de WordPress o WooCommerce.
 
+El carrito evolucionará reemplazando su persistencia local y sus operaciones por una sesión remota. Los componentes consumen useCart y no acceden directamente a localStorage. WooCommerce deberá determinar stock, precios definitivos, impuestos, envíos y checkout; el navegador no será una fuente autoritativa.
+
 ## Próxima etapa
 
 - Integración con WordPress y WooCommerce.
 - Acceso remoto a productos y estados de carga/error.
 - Cuenta y autenticación.
-- Carrito y persistencia.
+- Carrito remoto y sesión de WooCommerce.
 - Checkout, pagos y pedidos.
 - Infraestructura y configuración de publicación definitiva.
 

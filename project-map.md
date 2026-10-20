@@ -1,9 +1,10 @@
 # Project Map
-_Updated: 2026-10-19 | User-supplied reference: 3fa1e90 | Identity: Vuravo, stage 1.2_
+_Updated: 2026-10-19 | User-supplied reference: 3fa1e90 | Identity: Vuravo, stages 1.2 + 2.1_
 
 ## Directory Structure
 `src/` — React application source, shared styles, data fixtures, models, and UI components.
 `src/config/` — Shared Vuravo brand identity and messages.
+`src/cart/` — Cart contracts, reducer, totals, Context provider and localStorage adapter.
 `src/types/` — Product, category, and synchronous repository contracts.
 `src/data/` — Eighteen product fixtures, six categories, and pure repository operations.
 `src/components/` — Layout, home sections, catalog controls, product cards and gallery.
@@ -16,7 +17,10 @@ _Updated: 2026-10-19 | User-supplied reference: 3fa1e90 | Identity: Vuravo, stag
 `package.json` — Vite scripts and the compatible React/TypeScript dependency baseline.
 `vite.config.ts` — Vite configuration and React plugin registration.
 `src/main.tsx` — React entry point mounting the application.
-`src/App.tsx` — Main application composition and route shell.
+`src/App.tsx` — Public routes, /carrito, shared CartProvider, native drawer and feedback.
+`src/cart/CartProvider.tsx` — Single cart state and operations.
+`src/cart/cartStorage.ts` — ID/quantity-only persistence under vuravo-cart-v1.
+`docs/cart.md` — Cart architecture and future migration.
 `src/index.css` — Neutral/warm visual system, responsive layouts, typography, and interaction states.
 `src/lib/productImages.ts` — Resource-specific contain/cover choices shared by product cards and gallery.
 `src/components/home/Hero.tsx` — Single lifestyle photograph in an independent media frame; content determines height.
@@ -35,7 +39,10 @@ _Updated: 2026-10-19 | User-supplied reference: 3fa1e90 | Identity: Vuravo, stag
 - Current identity is Vuravo (vuravo.); NEXO is historical documentation only.
 - Preserve nx-* product IDs and existing slugs across rebranding.
 - Spanish (Argentina) is the product language and ARS is the display currency.
-- The first stage uses local demo data only; WordPress/WooCommerce integration is future work.
+- Products and cart use local data only; WooCommerce integration is future work.
+- Persist only productId and quantity; prices come from the repository.
+- Maximum 10 units per item is a demonstration rule, not stock.
+- Stage 2.0 price filters, sorting and autocomplete were absent from this baseline.
 - Do not add automated test suites or present future commerce actions as implemented.
 - The implementation request explicitly excludes tests, lint, builds, audits, and post-implementation manual checks.
 - BrowserRouter hosting must rewrite frontend deep links to index.html.

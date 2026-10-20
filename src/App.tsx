@@ -6,6 +6,10 @@ import { HomePage } from './pages/HomePage'
 import { CatalogPage } from './pages/CatalogPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { CartPage } from './pages/CartPage'
+import { CartProvider } from './cart/CartProvider'
+import { CartDrawer } from './components/cart/CartDrawer'
+import { CartFeedback } from './components/cart/CartFeedback'
 
 function RoutePosition() {
   const { pathname } = useLocation()
@@ -24,6 +28,7 @@ function RoutePosition() {
 function App() {
   return (
     <BrowserRouter>
+      <CartProvider>
       <div className="app-shell min-h-dvh">
         <a className="skip-link" href="#main-content">Saltar al contenido</a>
         <RoutePosition />
@@ -33,11 +38,15 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/catalogo" element={<CatalogPage />} />
             <Route path="/producto/:slug" element={<ProductDetailPage />} />
+            <Route path="/carrito" element={<CartPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
         <Footer />
+        <CartDrawer />
+        <CartFeedback />
       </div>
+      </CartProvider>
     </BrowserRouter>
   )
 }

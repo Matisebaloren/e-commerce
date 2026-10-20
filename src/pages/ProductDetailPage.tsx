@@ -10,6 +10,7 @@ import { formatPrice } from '../lib/formatters'
 import { usePageTitle } from '../lib/usePageTitle'
 import { NotFoundPage } from './NotFoundPage'
 import { brand } from '../config/brand'
+import { ProductPurchase } from '../components/cart/ProductPurchase'
 
 export function ProductDetailPage() {
   const { slug = '' } = useParams()
@@ -36,9 +37,10 @@ export function ProductDetailPage() {
           <div className="detail-badges">{product.isNew && <span className="badge badge-new">Nuevo en {brand.name}</span>}{product.isFeatured && <span className="badge badge-neutral">Selección destacada</span>}</div>
           <h1>{product.name}</h1><p className="product-short-description">{product.shortDescription}</p>
           <div className="detail-price"><strong>{formatPrice(product.price)}</strong>{hasDiscount && <del>{formatPrice(product.previousPrice!)}</del>}<span>Precio ilustrativo en pesos argentinos</span></div>
+          <ProductPurchase key={product.id} productId={product.id} name={product.name} />
           <section className="product-description-section" aria-labelledby="description-heading"><h2 id="description-heading">Sobre este producto</h2><p className="product-description">{product.description}</p></section>
           <section className="product-features" aria-labelledby="features-heading"><h2 id="features-heading">Características del producto.</h2><dl>{product.features.map((feature) => <div key={feature.label}><dt>{feature.label}</dt><dd>{feature.value}</dd></div>)}</dl></section>
-          <div className="demo-notice"><Info size={20} aria-hidden="true" /><p>{brand.demoNotice}</p></div>
+          <div className="demo-notice"><Info size={20} aria-hidden="true" /><p>El carrito se guarda en este navegador. No permite concretar compras ni efectuar pagos. {brand.demoNotice}</p></div>
           <Link className="text-link" to={`/catalogo?categoria=${product.category}`}>Seguí explorando {category?.name.toLocaleLowerCase('es-AR')}<ArrowUpRight size={18} aria-hidden="true" /></Link>
         </div>
       </div>

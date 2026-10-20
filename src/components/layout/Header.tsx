@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ShoppingBag } from 'lucide-react'
 import { Container } from './Container'
 import { MobileMenu } from './MobileMenu'
 import { Brand } from '../ui/Brand'
 import { SearchBar } from '../catalog/SearchBar'
 import { categories } from '../../data/categories'
+import { useCart } from '../../cart/useCart'
 
 function HeaderSearch({ initialQuery, onSearch }: { initialQuery: string; onSearch: () => void }) {
   const [query, setQuery] = useState(initialQuery)
@@ -19,6 +20,7 @@ function HeaderSearch({ initialQuery, onSearch }: { initialQuery: string; onSear
 }
 
 export function Header() {
+  const { totalUnits, isDrawerOpen, openCart } = useCart()
   const [open, setOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const [params] = useSearchParams()
@@ -46,6 +48,9 @@ export function Header() {
             <NavLink to="/catalogo">Catálogo</NavLink>
           </nav>
           <div className="header-search"><HeaderSearch key={location.key} initialQuery={params.get('q') ?? ''} onSearch={() => setOpen(false)} /></div>
+          <button className="icon-button header-cart" type="button" onClick={() => { setOpen(false); openCart() }} aria-haspopup="dialog" aria-expanded={isDrawerOpen} aria-controls="cart-drawer" aria-label={`Abrir carrito: ${totalUnits} ${totalUnits === 1 ? 'unidad' : 'unidades'}`}>
+            <ShoppingBag size={23} aria-hidden="true" /><span className={`cart-count ${totalUnits === 0 ? 'cart-count-empty' : ''}`} aria-hidden="true">{totalUnits}</span>
+          </button>
           <button ref={toggleRef} className="icon-button menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setOpen(!open)}>
             {open ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
           </button>

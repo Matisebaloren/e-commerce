@@ -5,6 +5,7 @@ import { getCategory } from '../../data/categories'
 import { formatPrice } from '../../lib/formatters'
 import { ResponsiveImage } from '../ui/ResponsiveImage'
 import { getProductImageClass } from '../../lib/productImages'
+import { AddToCartButton } from '../cart/AddToCartButton'
 
 export function ProductCard({ product }: { product: Product }) {
   const category = getCategory(product.category)
@@ -31,6 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
           <span className="product-card-detail">Ver producto<span className="product-card-arrow" aria-hidden="true"><ArrowUpRight size={18} /></span></span>
         </div>
       </Link>
+      <div className="product-card-purchase"><AddToCartButton productId={product.id} /></div>
     </article>
   )
 }
