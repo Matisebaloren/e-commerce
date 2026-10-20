@@ -56,3 +56,10 @@ La estructura del proyecto separa componentes, páginas, lógica del carrito y a
 Entre las mejoras previstas se encuentra la integración con WooCommerce para incorporar productos reales y funcionalidades de comercio electrónico.
 
 **Nota:** Este proyecto es únicamente demostrativo. No permite realizar compras ni procesar pagos reales.
+
+<img width="1906" height="951" alt="image" src="https://github.com/user-attachments/assets/369a6b95-ce70-431d-8197-606dce96e4d4" />
+
+<img width="1894" height="948" alt="image" src="https://github.com/user-attachments/assets/49cc5dc3-7444-46c4-8599-9956a113f89c" />
+
+<img width="1903" height="948" alt="image" src="https://github.com/user-attachments/assets/f3efe87c-b7aa-4d33-9ce5-5e4e287afcde" />
+
